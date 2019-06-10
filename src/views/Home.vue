@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <Login/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
+// import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Login from '@/components/Login.vue';
 @Component({
   components: {
-    HelloWorld,
+    // HelloWorld,
+    Login,
   },
 })
 export default class Home extends Vue {}
 </script>
+
+
+<style lang="scss" scoped>
+
+html{
+  font-size: 62.5%;
+}
+.home{
+  margin-top: 6.6rem;
+}
+</style>
+
