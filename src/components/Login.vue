@@ -11,7 +11,7 @@
       </a>
     </header>
     <img src="../assets/upload.gif" class="loading">
-    <!-- <div class="marBott"></div> -->
+    <div class="marBott"></div>
     <!-- 内容 -->
     <div class="main">
       <input type="text" class="username" placeholder="请输入手机号码/邮箱">

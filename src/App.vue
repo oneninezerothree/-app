@@ -1,19 +1,9 @@
 <template>
   <div id="app">
     <router-view/>
-    <mxfooter />
   </div>
 </template>
-<script>
-import { Component, Vue } from 'vue-property-decorator';
-import mxfooter from '@/components/footer/footer.vue';
-@Component({
-  components: {
-    mxfooter
-  }
-})
-export default class App extends Vue {}
-</script>
+
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
