@@ -1,30 +1,29 @@
 <template>
   <div class="home">
-    <Login/>
+    <MList/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-// import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-import Login from '@/components/Login.vue';
-@Component({
-  components: {
-    // HelloWorld,
-    Login,
-  },
-})
-export default class Home extends Vue {}
+import MList from './MList.vue'
+export default {
+   components:{
+     MList
+  }
+}
 </script>
 
 
-<style lang="scss" scoped>
-
+<style lang="scss" >
+*{
+  margin:0;
+  padding:0;
+}
 html{
-  font-size: 62.5%;
+  font-size:10px;
 }
 .home{
-  margin-top: 6.6rem;
+  position: relative;
 }
 </style>
 
