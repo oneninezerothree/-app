@@ -55,7 +55,6 @@ export default Vue.extend({
   },
   methods: {
     foo: function(number) {
-       console.log(this);
       return (this.num = number);
     },
   },
