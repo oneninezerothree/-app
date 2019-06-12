@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <mxfooter/>
     <router-view/>
   </div>
 </template>
