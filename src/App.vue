@@ -19,6 +19,7 @@ html{
   font-size: 62.5%;
   overflow-x: hidden;
   background: #f3f3f3;
+  padding-bottom: 50px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -16,7 +16,7 @@
     <div class="commodity">
       <ul class="inCommodity clearfix">
         <li productid="65283" class="inCommodityList" v-for="(item,i) in arr" :key="i">
-          <router-link to>
+          <router-link :to="'/details/' + item.id">
             <img
               :src="require('../../images/index' + (Math.floor(Math.random() * 10) + 1) +'.jpg')"
             >

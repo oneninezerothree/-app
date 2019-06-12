@@ -46,10 +46,8 @@
     <div class="commodity">
       <ul class="inCommodity clearfix">
         <li productid="65283" class="inCommodityList" v-for="(item,i) in arr" :key="i">
-          <router-link to>
-            <img
-              :src="require('../../images/index' + (Math.floor(Math.random() * 10) + 1) +'.jpg')"
-            >
+          <router-link :to="'/details/' + item.id + '/' + item.img ">
+            <img :src="require('../../images/index' + item.img +'.jpg')">
             <span class="CommodityLabel">{{item.info[0].split(' ')[0]}}</span>
             <span class="CommodityLabelAdd">{{item.info[0].split(' ')[1]}}</span>
             <p class="CommodityName">{{item.info[1]}}</p>
@@ -81,7 +79,10 @@ export default {
       .then(response => {
         //这里使用了ES6的语法
         this.arr.push(...response.data.data.goods);
-        this.arr.forEach(item => (item.info = item.info.split("\n\n")));
+        this.arr.forEach(item => {
+          item.info = item.info.split("\n\n");
+          item.img = Math.floor(Math.random() * 10) + 1;
+        });
         // console.log(this.arr); //请求成功返回的数据
       })
       .catch(error => {
