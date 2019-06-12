@@ -7,12 +7,17 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import mxfooter from '@/components/footer/footer.vue';
+
 @Component({
   components: {
     mxfooter
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+   mounted() {
+  return  this.$store.commit('increment',1)
+  }
+}
 </script>
 <style lang="scss">
 html{

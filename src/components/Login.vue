@@ -2,7 +2,7 @@
   <div id="login">
     <!-- 头部 -->
     <header>
-      <a class="return">
+      <a class="return" href="/home">
         <img src="../assets/return.png">
       </a>
       <p class="tit">登录</p>
@@ -80,8 +80,8 @@ export default Vue.extend({
       },
     };
   },
-  created(){
-    //footer消失
+  created() {
+    // footer消失
     this.$store.state.count = 0;
   },
   methods: {
@@ -90,7 +90,7 @@ export default Vue.extend({
       this.isShow = !this.isShow;
       const _this = this;
       // 定时器，弹框从下往上出现
-      const timer = setInterval(function() {
+      const timer = setTimeout(function() {
         if (_this.shows.bottom > -10) {
           _this.shows.bottom = -10;
           clearInterval(timer);

@@ -12,9 +12,25 @@ export default new Router({
   routes: [
     // {
     //   path: '/',
-    //   name: 'login',
-    //   component: login,
+    //   name: 'home',
+    //   // component: login,
     // },
+    {
+      path: '/my',
+      name: 'my',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './components/My.vue'),
+    },
+    {
+      path: '/activity',
+      name: 'activity',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './components/Activity.vue'),
+    },
     {
       path: '/Register.vue',
       name: 'register',

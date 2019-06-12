@@ -68,6 +68,10 @@ export default Vue.extend({
       navnum:0,
     }
   },
+   created(){
+    //footer消失
+    this.$store.state.count = 1;
+  },
   methods: {
     navAct(num){
       return this.navnum = num

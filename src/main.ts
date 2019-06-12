@@ -5,6 +5,8 @@ import store from './store';
 import axios from 'axios';
 import './registerServiceWorker';
 import './css/base.css';
+import infiniteScroll from 'vue-infinite-scroll';
+Vue.use(infiniteScroll);
 
 Vue.prototype.$axios = axios;
 
