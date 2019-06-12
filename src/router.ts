@@ -21,6 +21,31 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './components/Register.vue'),
     },
-
+    {
+      path: '/home',
+      name: 'home',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue'),
+      children: [
+        {
+          path: '/home',
+          name: 'indexRecommend',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './components/index/indexRecommend.vue'),
+        },
+        {
+          path: '/home/indexNav/:title',
+          name: 'indexRecommend',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './components/index/indexNav.vue'),
+        },
+      ],
+    },
   ],
 });

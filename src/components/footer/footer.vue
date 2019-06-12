@@ -2,7 +2,7 @@
   <footer>
     <div class="inFooter" v-if="isShowMfooter">
       <p class="index" @click="foo(1)">
-        <router-link to>
+        <router-link to="/home">
           <img
             class="indeximg"
             :src="num==1?require('../../images/indexAct.png'):require('../../images/index.png')"
@@ -55,7 +55,6 @@ export default Vue.extend({
   },
   methods: {
     foo: function(number) {
-       console.log(this);
       return (this.num = number);
     },
   },
@@ -65,7 +64,7 @@ export default Vue.extend({
     }
   },
   // mounted() {
-  // return  this.$store.commit('increment',1)
+  // return  this.$store.commit('increment',0)
   // },
 });
 </script>
