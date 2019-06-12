@@ -39,7 +39,7 @@ export default {
     return {
       title: null,
       arr: [],
-      img:null
+      img: null
     };
   },
   created() {
@@ -51,27 +51,30 @@ export default {
   methods: {
     getcontent() {
       this.title = this.$route.params.title;
-      if(this.$route.params.title.slice(0,2) == '保税'){
-        this.img = require('../../images/navmeni1.jpg');
-      }else if(this.$route.params.title.slice(0,2) == '中国'){
-        this.img = require('../../images/navmeni2.jpg');
-      }else if(this.$route.params.title.slice(0,2) == '日本'){
-        this.img = require('../../images/navmeni3.jpg');
-      }else{
-        this.img = require('../../images/navmeni4.jpg');
+      if (this.$route.params.title.slice(0, 2) == "保税") {
+        this.img = require("../../images/navmeni1.jpg");
+      } else if (this.$route.params.title.slice(0, 2) == "中国") {
+        this.img = require("../../images/navmeni2.jpg");
+      } else if (this.$route.params.title.slice(0, 2) == "日本") {
+        this.img = require("../../images/navmeni3.jpg");
+      } else {
+        this.img = require("../../images/navmeni4.jpg");
       }
       this.$axios({
         method: "get",
         url: "https://www.easy-mock.com/mock/5cf515414bb49512a3416cfe/MXgoods"
       })
         .then(response => {
-          this.arr = []
-          let a  =[];
+          this.arr = [];
+          let a = [];
           //这里使用了ES6的语法
           a.push(...response.data.data.goods);
           a.forEach((item, index) => {
             item.info = item.info.split("\n\n");
-            if (item.info[0].split(" ")[0].slice(0,2) == this.$route.params.title.slice(0,2)) {
+            if (
+              item.info[0].split(" ")[0].slice(0, 2) ==
+              this.$route.params.title.slice(0, 2)
+            ) {
               this.arr.push(item);
             }
           });

@@ -4,6 +4,7 @@
     <mxfooter />
   </div>
 </template>
+
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import mxfooter from '@/components/footer/footer.vue';
@@ -14,14 +15,19 @@ import mxfooter from '@/components/footer/footer.vue';
 })
 export default class App extends Vue {}
 </script>
+
 <style lang="scss">
+html{
+  font-size: 62.5%;
+  overflow-x: hidden;
+  background: #f3f3f3;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding-bottom: 50px;
 }
 #nav {
   padding: 30px;

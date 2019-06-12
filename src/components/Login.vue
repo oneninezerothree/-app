@@ -11,18 +11,22 @@
       </a>
     </header>
     <img src="../assets/upload.gif" class="loading">
-    <!-- <div class="marBott"></div> -->
+    <div class="marBott"></div>
     <!-- 内容 -->
     <div class="main">
       <input type="text" class="username" placeholder="请输入手机号码/邮箱">
       <div class="eyes">
         <a class="eyes_box" @click="eyes=!eyes">
-          <img src="../assets/guan.png"  v-if="eyes">
-          <img src="../assets/kai.jpg" v-else> 
+          <img src="../assets/guan.png" v-if="eyes">
+          <img src="../assets/kai.jpg" v-else>
         </a>
-        <input type="password" class="input_text_password mima_dd" placeholder="请输入密码"  v-show="eyes">
-        <input type="text" class="input_text_password mima_wz"  placeholder="请输入密码" v-show="!eyes">
-        
+        <input
+          type="password"
+          class="input_text_password mima_dd"
+          placeholder="请输入密码"
+          v-show="eyes"
+        >
+        <input type="text" class="input_text_password mima_wz" placeholder="请输入密码" v-show="!eyes">
       </div>
 
       <a class="login">登录</a>
@@ -80,9 +84,9 @@ export default Vue.extend({
     // 弹框出现
     s() {
       this.isShow = !this.isShow;
-      let _this = this;
+      const _this = this;
       // 定时器，弹框从下往上出现
-      let timer = setInterval(function() {
+      const timer = setInterval(function() {
         if (_this.shows.bottom > -10) {
           _this.shows.bottom = -10;
           clearInterval(timer);
