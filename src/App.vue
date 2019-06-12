@@ -1,10 +1,8 @@
 <template>
   <div id="app">
     <router-view/>
-    <mxfooter />
   </div>
 </template>
-
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import mxfooter from '@/components/footer/footer.vue';
@@ -15,7 +13,6 @@ import mxfooter from '@/components/footer/footer.vue';
 })
 export default class App extends Vue {}
 </script>
-
 <style lang="scss">
 html{
   font-size: 62.5%;

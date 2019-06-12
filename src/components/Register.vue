@@ -36,7 +36,6 @@
           <a href="registerprotocol.html">《注册协议》</a>
         </p>
       </div>
-
       <p class="service">联系客服400-660-6366</p>
     </div>
   </div>
