@@ -19,7 +19,7 @@
         </router-link>
       </p>
       <p @click="foo(3)">
-        <router-link to>
+        <router-link to="/activity">
           <img
             :src="num==3?require('../../images/activityAct.png'):require('../../images/activity.png')"
           >
@@ -35,7 +35,7 @@
         </router-link>
       </p>
       <p @click="foo(5)">
-        <router-link to>
+        <router-link to="/my">
           <img
             :src="num==5?require('../../images/userCenterAct.png'):require('../../images/userCenter.png')"
           >

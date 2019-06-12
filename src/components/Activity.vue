@@ -2,12 +2,12 @@
   <div>
     <header>
       <p class="tit">活动</p>
-      <a href="../views/Home.vue">
+      <a href="/home">
         <img class="backindex" src="../assets/logo.png">
       </a>
     </header>
     <div class="activity">
-      <ul class="activityList">
+      <ul class="activityList" >
         <li v-infinite-scroll="load" infinite-scroll-disabled="busy" infinite-scroll-distance="5">
           <div class="activityMain" v-for="(g,index) in goodsList" :key="index">
             <a href="activityList.html#id=255">
@@ -32,8 +32,7 @@
 
 <script>
 import Vue from "vue";
-import request from "../libs/request";
-// https://www.easy-mock.com/mock/5cf515414bb49512a3416cfe/activity
+import request from "../lib/request";
 export default Vue.extend({
   data() {
     return {
@@ -51,7 +50,7 @@ export default Vue.extend({
       const data = await g({
         url: "https://www.easy-mock.com/mock/5cf515414bb49512a3416cfe/activity"
       });
-      this.goodsList = [...this.goodsList, ...data.data.data.goodsList];
+      this.goodsList = [...this.goodsList,...data.data.data.goodsList];
     },
     load() {
       this.busy = true;

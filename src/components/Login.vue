@@ -6,7 +6,7 @@
         <img src="../assets/return.png">
       </a>
       <p class="tit">登录</p>
-      <a href>
+      <a href="/home">
         <img class="backindex" src="../assets/logo.png">
       </a>
     </header>
@@ -79,6 +79,10 @@ export default Vue.extend({
         bottom: -100,
       },
     };
+  },
+  created(){
+    //footer消失
+    this.$store.state.count = 0;
   },
   methods: {
     // 弹框出现

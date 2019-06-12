@@ -1,7 +1,7 @@
 <template>
   <div id>
     <header>
-      <a class="return">
+      <a class="return" href="./Login.vue">
         <img src="../assets/return.png">
       </a>
       <p class="tit">注册</p>
@@ -57,8 +57,12 @@ export default Vue.extend({
       isinf2: false,
       inf3: "手机号码不正确",
       isinf3: false,
-      url: ""
+      url: "",
     };
+  },
+  created(){
+    //footer消失
+    this.$store.state.count = 0;
   },
   methods: {
     //随机4位数的验证码
@@ -84,9 +88,16 @@ export default Vue.extend({
     },
     //手机号码
     tel() {
+      
+        let telreg = /^1[3-9]\d{9}$/;
+      
       if (this.$refs.tels.value.length == 11) {
-        // this.$refs.inf.value = "验证码错误"
-        this.isinf3 = false;
+        if(telreg.test(this.$refs.tels.value)){
+            this.isinf3 = false;
+        }else{
+            this.isinf3 = true;
+
+        }
       } else {
         this.isinf3 = !this.isinf3;
       }
