@@ -8,8 +8,8 @@
       </div>
       <div class="userInfo">
         <img src="../assets/moxi.png">
-        <p class="userName"></p>
-        <p class="grades"></p>
+        <p class="userName">{{$cookie.get('user')}}</p>
+        <p class="grades" @click="del">{{$cookie.get('user')?'退出登陆':''}}</p>
       </div>
       <p class="give">签到送摩币</p>
     </div>
@@ -155,7 +155,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    del() {
+      this.$cookie.delete("user");
+      window.location.reload();
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -339,5 +346,4 @@ export default {};
 .borTop {
   border-top: solid 0.1rem #ddd;
 }
-
 </style>

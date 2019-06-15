@@ -57,10 +57,10 @@ export default Vue.extend({
       isinf2: false,
       inf3: "手机号码不正确",
       isinf3: false,
-      url: "",
+      url: ""
     };
   },
-  created(){
+  created() {
     //footer消失
     this.$store.state.count = 0;
   },
@@ -88,15 +88,13 @@ export default Vue.extend({
     },
     //手机号码
     tel() {
-      
-        let telreg = /^1[3-9]\d{9}$/;
-      
-      if (this.$refs.tels.value.length == 11) {
-        if(telreg.test(this.$refs.tels.value)){
-            this.isinf3 = false;
-        }else{
-            this.isinf3 = true;
+      let telreg = /^1[3-9]\d{9}$/;
 
+      if (this.$refs.tels.value.length == 11) {
+        if (telreg.test(this.$refs.tels.value)) {
+          this.isinf3 = false;
+        } else {
+          this.isinf3 = true;
         }
       } else {
         this.isinf3 = !this.isinf3;
@@ -126,7 +124,25 @@ export default Vue.extend({
         this.$refs.pwd2.value &&
         this.$refs.codes.value
       ) {
-        this.url = "./Login.vue";
+        this.$axios({
+          method: "get",
+          url: "https://www.apiopen.top/createUser",
+          params: {
+            key: "00d91e8e0cca2b76f515926a36db68f5",
+            phone: this.$refs.tels.value,
+            passwd: this.$refs.pwd1.value,
+          }
+        })
+          .then(response => {
+            if (response.data.msg == "用户已注册！") {
+              alert('用户已注册！');
+            } else {
+              window.location.href = "/login.vue";
+            }
+          })
+          .catch(error => {
+            console.log(error); //请求失败返回的数据
+          });
       } else {
         alert("您填写的信息有误");
       }

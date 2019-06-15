@@ -7,6 +7,8 @@ import './registerServiceWorker';
 import './css/base.css';
 import infiniteScroll from 'vue-infinite-scroll';
 Vue.use(infiniteScroll);
+import vueCookie from 'vue-cookie';
+Vue.use(vueCookie);
 
 Vue.prototype.$axios = axios;
 

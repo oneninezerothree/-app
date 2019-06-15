@@ -14,22 +14,21 @@
     <div class="marBott"></div>
     <!-- 内容 -->
     <div class="main">
-      <input type="text" class="username" placeholder="请输入手机号码/邮箱">
+      <input type="text" class="username" placeholder="请输入手机号码/邮箱" ref="pone">
       <div class="eyes">
         <a class="eyes_box" @click="eyes=!eyes">
           <img src="../assets/guan.png" v-if="eyes">
           <img src="../assets/kai.jpg" v-else>
         </a>
         <input
-          type="password"
           class="input_text_password mima_dd"
           placeholder="请输入密码"
-          v-show="eyes"
+          :type="eyes?'password':'text'"
+          ref="password"
         >
-        <input type="text" class="input_text_password mima_wz" placeholder="请输入密码" v-show="!eyes">
       </div>
 
-      <a class="login">登录</a>
+      <a class="login" @click="login">登录</a>
       <p>
         <a class="Pwd" @click="s">忘记密码</a>
         <a href="./Register.vue">注册用户</a>
@@ -67,8 +66,8 @@
 </template>
 
 
-<script lang="ts">
-import Vue from 'vue';
+<script>
+import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
@@ -76,8 +75,8 @@ export default Vue.extend({
       isShow: false,
       speed: 8,
       shows: {
-        bottom: -100,
-      },
+        bottom: -100
+      }
     };
   },
   created() {
@@ -103,7 +102,45 @@ export default Vue.extend({
       this.isShow = false;
       this.shows.bottom = -100;
     },
-  },
+    login() {
+      if (
+        this.$refs.pone.value == "" ||
+        !/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/.test(
+          this.$refs.pone.value
+        )
+      ) {
+        alert("请输入正确手机号码");
+      } else if (
+        this.$refs.password.value == "" ||
+        this.$refs.password.value.length < 6
+      ) {
+        alert("密码长度不得少于8位");
+      } else {
+        this.$axios({
+          method: "get",
+          url: "https://www.apiopen.top/login",
+          params: {
+            key: "00d91e8e0cca2b76f515926a36db68f5",
+            phone: this.$refs.pone.value,
+            passwd: this.$refs.password.value
+          }
+        })
+          .then(response => {
+            if (response.data.msg == "用户名或者密码错误！") {
+              alert("用户名或者密码错误！");
+            } else {
+              this.$cookie.set("user", this.$refs.pone.value, {
+                expires: "7D"
+              });
+              window.location.href = "/";
+            }
+          })
+          .catch(error => {
+            console.log(error); //请求失败返回的数据
+          });
+      }
+    }
+  }
 });
 </script>
 
