@@ -10,7 +10,7 @@ import mxfooter from '@/components/footer/footer.vue';
 
 @Component({
   components: {
-    mxfooter
+    mxfooter,
   }
 })
 export default class App extends Vue {

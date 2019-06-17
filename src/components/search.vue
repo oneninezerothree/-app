@@ -1,9 +1,9 @@
 <template>
 <div id="bigbox">
     <header>
-    <a class="return"><img src="../assets/return.png"></a>
+    <a class="return" href="/"><img src="../assets/return.png"></a>
     <div class="search">
-        <a href=""></a>
+        <a href="javascript:"></a>
         <form action="">
         <input class="searchTxt" type="search" id="searchtext" value="">
         </form>
@@ -15,7 +15,7 @@
             <h2>最近搜索</h2>
             <a class="delete" style="display: none;"><img src="img/del.png"></a>
         </div>
-        <div class="lastSearchList" v-for="(a,indexs) in lastsearch" v-text="lastsearch[indexs]"></div>
+        <div class="lastSearchList" v-for="(a,indexs) in lastsearch" :key="indexs" v-text="lastsearch[indexs]"></div>
     </div>
     <div class="hotSearch">
         <h2 class="hotSearchTit">热门搜索</h2>
@@ -32,6 +32,9 @@
          return {
              lastsearch:["无搜索历史"]
          }
+     },
+     created(){
+         this.$store.state.count = 0;
      },
      methods: {
         searchac:function(){

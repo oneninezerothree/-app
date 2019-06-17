@@ -254,7 +254,13 @@ export default {
   methods: {
     routerback() {
       this.$router.back(-1);
-    }
+    },
+    // add() {
+    //   var idExist = this.$store.state.goodsList.find(item => {
+    //     return item.id == id;
+    //   });
+      
+    // }
   },
   created() {
     this.$axios({

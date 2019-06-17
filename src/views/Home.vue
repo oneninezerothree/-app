@@ -5,7 +5,7 @@
         <h1>
           <img src="../assets/logo.png">
         </h1>
-        <a href="#">搜索你感兴趣的内容</a>
+        <a href="/search">搜索你感兴趣的内容</a>
       </header>
       <nav class="nav swiper-container-horizontal">
         <ul class="swiper-wrapper nav-header">

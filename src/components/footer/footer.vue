@@ -11,7 +11,7 @@
         </router-link>
       </p>
       <p @click="foo(2)">
-        <router-link to>
+        <router-link to="/mlist">
           <img
             :src="num==2?require('../../images/classifyAct.png'):require('../../images/classify.png')"
           >
@@ -27,7 +27,7 @@
         </router-link>
       </p>
       <p @click="foo(4)">
-        <router-link to>
+        <router-link to='/car'>
           <img
             :src="num==4?require('../../images/shoppingCartAct.png'):require('../../images/shoppingCart.png')"
           >
