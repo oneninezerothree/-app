@@ -1,21 +1,21 @@
 <template>
 <div id="bigbox">
     <header>
-    <a class="return" href="/"><img src="../assets/return.png"></a>
+    <a class="return"><img src="../assets/return.png"></a>
     <div class="search">
-        <a href="javascript:"></a>
+        <a href=""></a>
         <form action="">
-        <input class="searchTxt" type="search" id="searchtext" value="">
+        <input class="searchTxt" type="search" id="searchtext" value="" placeholder="请输入搜索类型">
         </form>
-        <a class="deleteBtn" v-on:click="searchac">搜索</a>
+        <a class="deleteBtn" v-on:click="searchac" >搜索</a>
     </div>
     </header>
     <div class="lastSearch">
         <div class="lastSearchTit">
             <h2>最近搜索</h2>
-            <a class="delete" style="display: none;"><img src="img/del.png"></a>
+            <a class="delete" style="display: none;" ><img src="img/del.png"></a>
         </div>
-        <div class="lastSearchList" v-for="(a,indexs) in lastsearch" :key="indexs" v-text="lastsearch[indexs]"></div>
+        <div class="lastSearchList" v-for="(a,indexs) in lastsearch" v-text="lastsearch[indexs]"></div>
     </div>
     <div class="hotSearch">
         <h2 class="hotSearchTit">热门搜索</h2>
@@ -30,21 +30,36 @@
  export default {
      data() {
          return {
-             lastsearch:["无搜索历史"]
+             lastsearch:["无搜索历史"],
          }
-     },
-     created(){
-         this.$store.state.count = 0;
      },
      methods: {
         searchac:function(){
             var search =document.querySelector("#searchtext")
             if(search.value){
-            this.lastsearch=[...this.lastsearch,search.value]
+            if(this.lastsearch[0]=="无搜索历史"){
+                  this.lastsearch=[search.value] 
+            }else{
+               this.lastsearch=[...this.lastsearch,search.value]  
+            }
+           
+            if(search.value=="香港直邮"){
+                location.href="http://localhost:8080/home/indexNav/香港直邮"
+            }
+            if(search.value=="日本现货"){
+                location.href="http://localhost:8080/home/indexNav/日本现货"
+            }
+            if(search.value=="中国现货"){
+                location.href="http://localhost:8080/home/indexNav/中国现送"
+            }
+            if(search.value=="保税区闪送"){
+                location.href="http://localhost:8080/home/indexNav/保税区闪送"
+            }
             if(this.lastsearch.length>=5){
                  this.lastsearch.splice(0,1)
             }
-         }}
+         }},
+       
      },
   
  }

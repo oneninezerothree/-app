@@ -1,13 +1,13 @@
 <template>
 <div class="classify" style="display: block;">
 			<ul class="inClassifyCon inClassifyConAct" id="listbodyL">
-				<li class="inClassifyList" v-for="(a,indexs) in akg" :key="indexs">
-					<a class="classifyTit">
+				<li class="inClassifyList" v-for="(a,indexs) in akg">
+					<a class="classifyTit" href="/home/indexNav/香港直邮">
 						<img class="classifyBg" src="../assets/1.png">
 						<div class="classifyTitTxt"><p>{{akg[indexs].head}}-</p></div>
 					</a>
 					<div class="classifyTxt limitheight">
-					<a v-for="(s,index) in akg[indexs].body" :key="index">{{akg[indexs].body[index]}}</a></div>
+					<a v-for="(s,index) in akg[indexs].body">{{akg[indexs].body[index]}}</a></div>
 				</li>
 			</ul>
 			<ul class="inClassifyBrand " id="listbodyR">
