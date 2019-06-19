@@ -5,9 +5,12 @@
         <img src="../images/return.png">
       </a>
       <p class="tit">【包邮】【{{arr.info[0].split(' ')[0]}}】{{arr.info[1]}}</p>
-      <a href="shoppingCart.html" class="shoppingCart">
+      <!-- <a href="/car" class="shoppingCart">
         <img src="../images/gouwuche.png">
-      </a>
+      </a>-->
+      <router-link to="/car" class="shoppingCart">
+        <img src="../images/gouwuche.png">
+      </router-link>
     </header>
     <div style="margin-top: 5.1rem;"></div>
     <div class="swiper-slide">
@@ -235,7 +238,7 @@
           </a>
         </p>
         <p>
-          <a class="InShoppingCartBtn">加入购物车</a>
+          <a class="InShoppingCartBtn" @click="add">加入购物车</a>
         </p>
         <p style="margin-left:1rem">
           <a class="buy">立即购买</a>
@@ -245,6 +248,7 @@
   </div>
 </template>
 <script>
+import store from "../store";
 export default {
   data() {
     return {
@@ -255,12 +259,21 @@ export default {
     routerback() {
       this.$router.back(-1);
     },
-    // add() {
-    //   var idExist = this.$store.state.goodsList.find(item => {
-    //     return item.id == id;
-    //   });
-      
-    // }
+    add() {
+      // var idExist = this.$store.state.goodsList.find(item => {
+      //   return item.id == id;
+      // });
+      alert("加入购物车成功");
+      this.$store.commit("addshop", {
+        arr: this.arr,
+        img: this.$route.params.img,
+        count: 1,
+        selected: true
+      });
+      // this.$router.push({
+      //   name :'goodsList'
+      // })
+    }
   },
   created() {
     this.$axios({

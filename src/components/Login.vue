@@ -89,13 +89,13 @@ export default Vue.extend({
       this.isShow = !this.isShow;
       const _this = this;
       // 定时器，弹框从下往上出现
-      const timer = setTimeout(function() {
+      const timer = setInterval(function() {
         if (_this.shows.bottom > -10) {
           _this.shows.bottom = -10;
           clearInterval(timer);
         }
         _this.shows.bottom = _this.shows.bottom + _this.speed;
-      }, 50);
+      }, 30);
     },
     // 弹框消失
     disappear() {

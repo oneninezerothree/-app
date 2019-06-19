@@ -7,10 +7,10 @@
       <p class="tit">购物车</p>
     </header>
     <div class="marBott"></div>
-    <div class="nullCommodity">
+    <div class="nullCommodity" :style="nullshop?'display:block':''">
       <img src="../assets/shoppingCartBg.png">
       <p>没有相关商品</p>
-      <a href="#" class="hotTit">
+      <a href="/" class="hotTit">
         ————
         <span>去逛逛“爆款单品”吧~</span> ————
       </a>
@@ -21,9 +21,9 @@
     <!-- 商品内容 -->
     <div class="main">
       <div class="shoppingCart parent1" style="display: block;">
-        <div class="checkAll">
+        <div class="checkAll" :style="!nullshop?'display:block':'display:none'">
           <div class="checkAllSty">
-            <span class="titOne" @click="check_all" :class="{active:checkbool}">
+            <span class="titOne" @click="selectedall" :class="{active:checkbool}">
               <input class="checkClass" id="inCheckAll_1" type="checkbox">
             </span>
             <span class="profrom"></span>
@@ -31,45 +31,56 @@
           <button @click="bool=!bool" v-text="bool?'编辑':'完成'"></button>
         </div>
         <!-- 商品信息 -->
-        <div class="inShoppingCart" v-for="(c,index) in car_list" :key="index">
+        <div class="inShoppingCart" v-for="(g,index) in goods" :key="index">
           <div class="inShoppingCartList">
             <div class="open">
-              <div class="listOne" @click="checkitem(c)" :class="{active:checkbool}" >
+              <div
+                class="listOne"
+                :class="{active:g.selected}"
+                @click=" g.selected = !g.selected ;selected(g.id,g.selected)"
+              >
                 <input class="checkClass" name="subBox1" type="checkbox">
               </div>
               <a href="javascript:">
                 <div class="inShoppingCartCont">
-                  <img src="https://images.moximoxi.com/uploads/image/201803211652391.jpg">
+                  <img :src="require('../images/index' + g.img +'.jpg')">
+                  <!-- :src="require('../images/index' + id +'.jpg')" -->
                   <div class="inShoppingCartTxt">
-                    <p class="tit" v-if="bool">{{c.title}}</p>
+                    <p class="tit" v-if="bool">{{'【'+ g.info[0].split(' ')[0] + '】' + g.info[1]}}</p>
                     <div class="edit" v-if="!bool">
                       <input
                         class="cut"
                         type="button"
                         value="-"
-                        @click="c.num--"
-                        v-bind:disabled="c.num === 1"
+                        @click="prev(g.id,g.count,index)"
+                        v-bind:disabled="g.count === 1"
                       >
-                      <input class="num" type="text" v-model="c.num">
-                      <input class="add" type="button" value="+" @click="c.num++">
+                      <input
+                        class="num"
+                        type="text"
+                        ref="values"
+                        :value="g.count"
+                        @change="val(g.id,g.count,index)"
+                      >
+                      <input class="add" type="button" value="+" @click="next(g.id,g.count,index)">
                     </div>
                     <p>
                       <span class="free">包邮</span>
                       <span class="number" v-if="bool">
                         X
-                        <label>1</label>
+                        <label>{{g.count}}</label>
                       </span>
                     </p>
                     <span class="price">
                       ￥
-                      <label>{{c.price}}</label>
-                      <s>￥{{c.bPrice}}</s>
+                      <label>{{g.info[2].split('￥')[1]}}</label>
+                      <s>￥{{g.info[2].split('￥')[2]}}</s>
                     </span>
                   </div>
                 </div>
               </a>
             </div>
-            <div class="close" v-if="!bool" @click="delete_num">删除</div>
+            <div class="close" v-if="!bool" @click="del(g.id)">删除</div>
           </div>
         </div>
       </div>
@@ -79,7 +90,7 @@
     <div class="total">
       <div class="inTotal">
         <div class="totalCheckAll">
-          <span class="checkSty titAll" @click="check_all" :class="{active:checkbool}">
+          <span class="checkSty titAll" @click="selectedall" :class="{active:checkbool}">
             <input class="checkClass" id="inTotalCheckAll" type="checkbox" value>
           </span>
           <span>全选</span>
@@ -87,7 +98,7 @@
         <div class="allPrice">
           <p>
             合计：
-            <span>{{total_price}}</span>
+            <span>{{priceall}}</span>
           </p>
           <p>(不含运费)</p>
         </div>
@@ -102,86 +113,128 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
+      id: "",
+      num: 1,
+      nullshop: false,
       bool: true,
-      checkbool: false,
-      car_list: [
-        {
-          num: 1,
-          title:
-            "【包邮】【香港直邮】味之素/AJINOMOTO 火锅汤底 （麻辣泡菜味）8个66g",
-          price: 39,
-          bPrice: 195
-        },
-        {
-          num: 1,
-          title:
-            "【包邮】【澳门直邮】味之素/AJINOMOTO 火锅汤底 （麻辣泡菜味）8个66g",
-          price: 69,
-          bPrice: 200
-        }
-      ],
-      check_goods: []
+      checkbool: true,
+      goods: this.$store.state.goodsList,
+      check_goods: [],
+      re: "",
+      priceall: 0
     };
   },
   methods: {
-    goodsList() {
-      return this.$store.state.goodsList;
+    //改变商品数量
+    val(id, count, index) {
+      this.$refs.values[index].value;
+      this.$store.commit("updataCar", {
+        id: id,
+        count: this.$refs.values[index].value
+      });
+      this.price();
     },
-    //删除商品
-    delete_num(c) {
-      this.check_goods.splice(this.check_goods.indexOf(c), 1);
-      this.car_list.splice(this.car_list.indexOf(c), 1);
+    //加
+    next(id, count, index) {
+      this.$refs.values[index].value++;
+      this.$store.commit("updataCar", {
+        id: id,
+        count: this.$refs.values[index].value
+      });
+      this.price();
     },
-    //
-    checkitem: function(c) {
-      this.$set(c, "state", !c.state);
+    //减
+    prev(id, count, index) {
+      this.$refs.values[index].value--;
+      this.$store.commit("updataCar", {
+        id: id,
+        count: this.$refs.values[index].value
+      });
+      this.price();
     },
-    //              全选
-    check_all() {
-      this.checkbool = !this.checkbool;
-      if (this.check_goods.length > 0) {
-        this.check_goods = [];
-      } else {
-        this.car_list.forEach(item => {
-          this.check_goods.push(item);
-        });
+    //删除
+    del(id) {
+      let delshop = confirm("你确定要删除此商品吗？");
+      if (delshop) {
+        this.$store.commit("removeFormCar", id);
+        this.price();
+        alert('删除商品成功');
       }
+    },
+    //选中单个
+    selected(id, selected) {
+      this.$store.commit("removeFormCar", { id: id, selected: selected });
+
+      this.checkbool = this.goods.every(item => {
+        if (item.selected) {
+          return true;
+        }
+      });
+      this.price();
+    },
+    //全选
+    selectedall() {
+      if (this.checkbool) {
+        this.goods.forEach(item => {
+          item.selected = false;
+        });
+        this.checkbool = !this.checkbool;
+      } else {
+        this.goods.forEach(item => {
+          item.selected = true;
+        });
+        this.checkbool = !this.checkbool;
+      }
+      this.price();
+    },
+    //计算总价
+    price() {
+      this.priceall = 0;
+      this.goods.forEach(item => {
+        if (item.selected) {
+          this.priceall += parseInt(item.info[2].split("￥")[1] * item.count);
+          return true;
+        }
+      });
     }
+  },
+  created() {
+    this.$store.state.count = 1;
+    if (this.goods.length) {
+      this.nullshop = false;
+    } else {
+      this.nullshop = true;
+    }
+    return (this.checkbool = this.goods.every(item => {
+      if (item.selected) {
+        this.priceall += parseInt(item.info[2].split("￥")[1] * item.count);
+        return true;
+      }
+    }));
   },
   computed: {
-    //总价
-    total_price() {
-      let price = 0;
-      this.check_goods.forEach(item => {
-        //总价 = 价格 * 数量
-        price += Number(item.price) * Number(item.num);
-      });
-      return price;
-    },
-    total_num() {
-      let t_num = 0;
-      this.check_goods.forEach(item => {
-        t_num += Number(item.num);
-      });
-      return t_num;
-    }
-  },
-  watch: {
-    // car_list: {
-    //   deep: true,
-    //   handler(val) {
-    //     for (var i = 0; i < val.length; i++) {
-    //       if (!val[i].state) {
-    //         this.checkbool = !this.checkbool;
-    //         break;
-    //       }
-    //       if (i == val.length - 1) {
-    //         this.checkbool = !this.checkbool;
-    //       }
-    //     }
+    //   //总价
+    //   total_price() {
+    //     let price = 0;
+    //     this.check_goods.forEach(item => {
+    //       //总价 = 价格 * 数量
+    //       price += Number(item.price) * Number(item.num);
+    //     });
+    //     return price;
+    //   },
+    //   total_num() {
+    //     let t_num = 0;
+    //     this.check_goods.forEach(item => {
+    //       t_num += Number(item.num);
+    //     });
+    //     return t_num;
+    //   },
+    //   goodsList() {
+    //     return this.$store.state.goodsList;
     //   }
-    // }
-  }
+  },
+
+  watch: {}
 });
 </script>
 

@@ -27,11 +27,12 @@
         </router-link>
       </p>
       <p @click="foo(4)">
-        <router-link to='/car'>
+        <router-link to="/car" class="shoppingcart">
           <img
             :src="num==4?require('../../images/shoppingCartAct.png'):require('../../images/shoppingCart.png')"
           >
           <span :style="num==4?'color:#FF3333;':''">购物车</span>
+          <label v-text="number" v-show="this.$store.getters.goddsNumber==0 ? false : true"></label>
         </router-link>
       </p>
       <p @click="foo(5)">
@@ -50,7 +51,8 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-      num: 1
+      num: 1,
+      bool:false
     };
   },
   methods: {
@@ -58,10 +60,17 @@ export default Vue.extend({
       return (this.num = number);
     },
   },
+  created(){
+    
+  },
   computed:{
     isShowMfooter(){
       return this.$store.state.count
+    },
+    number(){
+      return this.$store.getters.goddsNumber
     }
+  
   },
   // mounted() {
   // return  this.$store.commit('increment',0)
@@ -106,6 +115,22 @@ footer {
         font-size: 0.9rem;
         color: #666;
         line-height: 1.8rem;
+      }
+      .shoppingcart {
+        position: relative;
+        label {
+          position: absolute;
+          width: 1.6rem;
+          height: 1.6rem;
+          border-radius: 50%;
+          background: #ff0000;
+          left: 3rem;
+          bottom: 2rem;
+          line-height: 1.6rem;
+          text-align: center;
+          font-size: 1.2rem;
+          color: white;
+        }
       }
     }
   }
